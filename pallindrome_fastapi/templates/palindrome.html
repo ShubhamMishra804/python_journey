@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Palindrome Checker</title>
+</head>
+<body>
+    <h2>Palindrome Checker</h2>
+    
+    <!-- Input box for the user -->
+    <input id="textInput" type="text" placeholder="Enter word or phrase">
+    
+    <!-- Button to check palindrome -->
+    <button onclick="checkPalindrome()">Check</button>
+    
+    <!-- Paragraph to display result -->
+    <p id="result"></p>
+
+    <!-- JavaScript to call FastAPI endpoint -->
+    <script>
+        function checkPalindrome() {
+            const text = document.getElementById('textInput').value;
+            fetch(`/palindrome?text=${encodeURIComponent(text)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.result;
+                })
+                .catch(error => {
+                    document.getElementById('result').innerText = "Error: " + error.message;
+                });
+        }
+    </script>
+</body>
+</html>
